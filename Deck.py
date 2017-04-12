@@ -22,11 +22,9 @@ class Card(object):
 
 class Deck:
     def __init__(self):
-        self.empty_deck()
+        self.deck = []
         self.generate_new_deck()
 
-    def empty_deck(self):
-        self.deck = []
 
     def put_in_deck(self, card):
         self.deck.append(card)
