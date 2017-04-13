@@ -49,7 +49,7 @@ class Agent(object):
                 return self.put_in_holds(card)
 
 class Player(Agent):
-    def user_decide(self):
+    def __user_decide(self):
         decision = input('Press h to hit or s(or any other character) to stick :')
         if decision == 'h': # No input validation here , maybe adding one could be necessary
             return HIT
@@ -57,15 +57,24 @@ class Player(Agent):
             return STICK
 
 
-    def user_turn(self,deck):
-        while True:
-            if self.user_decide() == HIT:
-                self.draw(deck)
-            else:
-                break
+    def user_action(self,deck):
+        """
+        
+        :param deck: 
+        :return:Whether HIT or not 
+        """
+        if self.__user_decide() == HIT:
+            self.draw(deck)
+            return True
+        else:
+            return False
+
 
 
 class Dealer(Agent):
-    def policy(self,deck):
-        while self.score < 17:
+    def action(self,deck):
+        if self.score < 17:
             self.draw(deck)
+            return True
+        else:
+            return False
