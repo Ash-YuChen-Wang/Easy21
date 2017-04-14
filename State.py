@@ -1,27 +1,23 @@
 import Agent
 
 
-
 class State(object):
-    def __init__(self,player,dealer):
+    def __init__(self, player, dealer):
         self.player_score = player.score
         self.dealer_score = dealer.score
 
-
-    def next_state(self,player,dealer):
+    def next_state(self, player, dealer):
         """
         
         :param player: 
         :param dealer: 
         :return: A new State instance 
         """
-        return State(player,dealer)
+        return State(player, dealer)
 
     def print_state(self):
-        print("Your score is ",self.player_score,"\nDealer's card is ",self.dealer_score)
+        print("Your score is ", self.player_score, "\nDealer's card is ", self.dealer_score)
 
-    def add_to_game(self,game):
-        game.add_state(self)
 
     def player_terminal(self):
         if self.player_score > 21 or self.player_score < 1:
@@ -35,17 +31,21 @@ class State(object):
         else:
             return False
 
+
 class Game(object):
     def __init__(self):
         self.states = []
-        self.reward = None
+        self.actions = []
+        self.rewards = []
+        self.terminated = False
 
-    def add_state(self,state):
+    def add_state(self, state):
         self.states.append(state)
 
+    def add_action(self,action):
+        self.actions.append(action)
 
+    def add_reward(self,reward):
+        self.rewards.append(reward)
 
-
-def step(state,action):
-    state.print_state()
 

@@ -1,31 +1,42 @@
 import Agent
+import State
+import random
+import numpy as np
+
+
+class Monte_Carlo_Control(object):
+    def __init__(self):
+        self.N = np.zeros([21, 10, 2])  # player score 1-21 | dealer first card 1-10 | HIT or STICK
+        self.Q = np.zeros([21, 10, 2])
+
+    def update(self, game):
+        game_return = sum(game.rewards)
+        counter = 0
+        for state in game.states:
+            self.N[state.player_score-1, state.dealer_score-1, game.actions[counter]] += 1
+            self.Q[state.player_score-1, state.dealer_score-1, game.actions[counter]] += \
+                1 / self.N[state.player_score-1, state.dealer_score-1, game.actions[counter]] * (
+                    game_return - self.Q[state.player_score-1, state.dealer_score-1, game.actions[counter]])
+            counter += 1
+
+
 class Policy(object):
-    """
-    Given a state , return HIT or STICK
-    """
-    def __init__(self,state):
-        self.state = state
-
-    def generate_action(self):
+    def __init__(self):
         pass
 
-    def update(self):
+    def action(self, state, k,Q):
         pass
 
-class Ask_user(Policy):
 
-    def generate_action(self):
-        decision = input('Press h to hit or s(or any other character) to stick :')
-        if decision == 'h':  # No input validation here , maybe adding one could be necessary
-            return Agent.HIT
-        else:
-            return Agent.STICK
-
-
-class Until_17(Policy):
-
-    def generate_action(self):
-        if self.state.dealer_score < 17:
-            return Agent.HIT
-        else:
-            return Agent.STICK
+class Epsilon_Greedy(Policy):
+    n0 = 100
+    def action(self, state, k, MC):
+        epsilon = self.n0/(self.n0+MC.N[state.player_score-1, state.dealer_score-1,Agent.HIT]+MC.N[state.player_score-1, state.dealer_score-1,Agent.STICK])
+        rand = random.random()
+        if rand <= epsilon:  # then choose action randomly
+            return random.choice([Agent.STICK, Agent.HIT])
+        else:  # or choose greedy action
+            if MC.Q[state.player_score-1, state.dealer_score-1, Agent.HIT] >= MC.Q[state.player_score-1, state.dealer_score-1, Agent.STICK]:
+                return Agent.HIT
+            else:
+                return Agent.STICK

@@ -1,4 +1,4 @@
-import numpy as np
+import random
 import Deck
 import RL
 
@@ -7,15 +7,14 @@ HIT = 1
 
 # Return a card
 def random_card(deck):
-    num = np.random.randint(Deck.CARDS)
+    num = random.randint(0,Deck.CARDS-1)
     return deck.deck[num]
 
 
 
 class Agent(object):
-    def __init__(self,policy,deck):
+    def __init__(self,deck):
         self.holds = []
-        self.policy = policy
         self.deck = deck
 
     def put_in_holds(self,card):
@@ -51,12 +50,6 @@ class Agent(object):
             if card.color == Deck.BLACK:
                 return self.put_in_holds(card)
 
-    def action(self):
-        if self.policy.generate_action(self.policy) == HIT:
-            self.draw()
-            return True
-        else:
-            return False
 
 class Player(Agent):
     pass
