@@ -1,26 +1,27 @@
 import Agent
 import Deck
 import State
+import RL
 
 deck = Deck.Deck()
 
 GAMES = []
 
 for i in range(3):
-    player = Agent.Player()
-    dealer = Agent.Dealer()
+    player = Agent.Player(RL.Ask_user,deck)
+    dealer = Agent.Dealer(RL.Until_17,deck)
 
     game = State.Game()
 
-    player.draw_black(deck)
-    dealer.draw_black(deck)
+    player.draw_black()
+    dealer.draw_black()
 
     state = State.State(player, dealer)
     state.add_to_game(game)
     state.print_state()
 
     # Player 's turn
-    while player.user_action(deck):
+    while player.action():
         state = state.next_state(player, dealer)
         state.add_to_game(game)  # You should only add your state to game when it's player's turn
         state.print_state()
@@ -31,7 +32,7 @@ for i in range(3):
 
     # Dealer 's turn only if game is not over
     if not game.reward:
-        while dealer.action(deck):
+        while dealer.action():
             state = state.next_state(player, dealer)
             state.print_state()
             if state.dealer_terminal():
