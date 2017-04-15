@@ -1,7 +1,9 @@
-import Agent
-import random
-import numpy as np
 import math
+import random
+
+import numpy as np
+
+from src import Agent
 
 
 class Monte_Carlo_Control(object):

@@ -1,6 +1,3 @@
-
-
-
 class State(object):
     def __init__(self, player, dealer):
         self.player_score = player.score

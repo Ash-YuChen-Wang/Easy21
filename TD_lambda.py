@@ -1,7 +1,4 @@
-import Agent
-import Deck
-import State
-import RL
+from src import Agent, Deck, RL, State
 
 
 def sarsa_lambda_control(episodes, lamb):
@@ -24,7 +21,7 @@ def sarsa_lambda_control(episodes, lamb):
         dealer.draw_black()
 
         state = State.State(player, dealer)
-        #state.print_state()
+        # state.print_state()
 
         action = policy.action(state, k + 1, sarsa)
 
@@ -36,7 +33,7 @@ def sarsa_lambda_control(episodes, lamb):
                 delta = reward + 0 - sarsa.Q_S_A(state, Agent.HIT)
                 sarsa.update(delta)
                 terminated = True
-                #print("Player BUST Lose !")
+                # print("Player BUST Lose !")
                 break
             state_next = state.next_state(player, dealer)
             action_next = policy.action(state_next, k + 1, sarsa)
@@ -54,33 +51,33 @@ def sarsa_lambda_control(episodes, lamb):
                     delta = reward + 0 - sarsa.Q_S_A(state, Agent.STICK)
                     sarsa.update(delta)
                     terminated = True
-                    #print("Dealer BUST Win !")
+                    # print("Dealer BUST Win !")
                     break
 
             if not terminated:
                 if player.score > dealer.score:
-                    #print("Player scores more Win !")
+                    # print("Player scores more Win !")
                     reward = 1
                     delta = reward + 0 - sarsa.Q_S_A(state, Agent.STICK)
                     sarsa.update(delta)
                     terminated = True
                 elif player.score < dealer.score:
-                    #print("Dealer scores more Lose !")
+                    # print("Dealer scores more Lose !")
                     reward = -1
                     delta = reward + 0 - sarsa.Q_S_A(state, Agent.STICK)
                     sarsa.update(delta)
                     terminated = True
                 else:
-                    #print("Draw !")
+                    # print("Draw !")
                     reward = 0
                     delta = reward + 0 - sarsa.Q_S_A(state, Agent.STICK)
                     sarsa.update(delta)
                     terminated = True
-        #player.print_holds()
-        #print()
-        #dealer.print_holds()
+                    # player.print_holds()
+                    # print()
+                    # dealer.print_holds()
 
-        #print("This game is over !")
+                    # print("This game is over !")
 
     print("Training Over !")
     return sarsa.Q

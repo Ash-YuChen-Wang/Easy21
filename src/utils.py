@@ -13,13 +13,15 @@ def plot_value(v):
     ax.set_zlabel('Value function')
     plt.show()
 
-def mse(x,y):
-    squared = (x-y)**2
+
+def mse(x, y):
+    squared = (x - y) ** 2
     return squared.mean()
 
+
 def mse_lambda(mse):
-    x = [i/10 for i in range(0,11)]
-    plt.plot(x,mse)
+    x = [i / 10 for i in range(0, 11)]
+    plt.plot(x, mse)
     plt.xlabel('Lambda')
     plt.ylabel('MSE')
     plt.show()

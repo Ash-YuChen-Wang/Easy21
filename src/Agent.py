@@ -1,5 +1,6 @@
 import random
-import Deck
+
+from src import Deck
 
 STICK = 0
 HIT = 1
