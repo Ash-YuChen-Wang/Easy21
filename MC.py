@@ -25,7 +25,7 @@ def monte_carlo_control(episodes):
 
         state = State.State(player, dealer)
         game.add_state(state)
-        state.print_state()
+        #state.print_state()
 
         # Player 's turn
         while policy.action(state, k + 1, MC) == Agent.HIT:
@@ -56,13 +56,13 @@ def monte_carlo_control(episodes):
         # Compare the scores if not terminated
         if not game.terminated:
             if player.score > dealer.score:
-                print("Player scores more Win !")
+                #print("Player scores more Win !")
                 game.add_reward(1)
             elif player.score < dealer.score:
-                print("Dealer scores more Lose !")
+                #print("Dealer scores more Lose !")
                 game.add_reward(-1)
             else:
-                print("Draw !")
+                #print("Draw !")
                 game.add_reward(0)
 
             game.terminated = True
@@ -70,12 +70,12 @@ def monte_carlo_control(episodes):
 
         GAMES.append(game)
 
-        player.print_holds()
-        print()
-        dealer.print_holds()
+        #player.print_holds()
+        #print()
+        #dealer.print_holds()
 
-        print("This game is over !")
+        #print("This game is over !")
 
-    print("Over !")
+    print("Training Over !")
 
     return MC.Q
