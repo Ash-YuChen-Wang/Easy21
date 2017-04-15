@@ -1,4 +1,4 @@
-import Agent
+
 
 
 class State(object):
@@ -17,7 +17,6 @@ class State(object):
 
     def print_state(self):
         print("Your score is ", self.player_score, "\nDealer's card is ", self.dealer_score)
-
 
     def player_terminal(self):
         if self.player_score > 21 or self.player_score < 1:
@@ -42,10 +41,8 @@ class Game(object):
     def add_state(self, state):
         self.states.append(state)
 
-    def add_action(self,action):
+    def add_action(self, action):
         self.actions.append(action)
 
-    def add_reward(self,reward):
+    def add_reward(self, reward):
         self.rewards.append(reward)
-
-

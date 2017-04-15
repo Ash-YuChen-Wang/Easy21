@@ -1,23 +1,22 @@
 import random
 import Deck
-import RL
 
 STICK = 0
 HIT = 1
 
+
 # Return a card
 def random_card(deck):
-    num = random.randint(0,Deck.CARDS-1)
+    num = random.randint(0, Deck.CARDS - 1)
     return deck.deck[num]
 
 
-
 class Agent(object):
-    def __init__(self,deck):
+    def __init__(self, deck):
         self.holds = []
         self.deck = deck
 
-    def put_in_holds(self,card):
+    def put_in_holds(self, card):
         self.holds.append(card)
 
     def draw(self):
@@ -43,7 +42,6 @@ class Agent(object):
         for card in self.holds:
             card.print_card()
 
-
     def draw_black(self):
         while True:
             card = random_card(self.deck)
@@ -53,7 +51,6 @@ class Agent(object):
 
 class Player(Agent):
     pass
-
 
 
 class Dealer(Agent):
